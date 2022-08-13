@@ -28,9 +28,13 @@ import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
 
+#if windows
 using StringTools;
+#end
 
+#if cpp
 class TitleState extends MusicBeatState
+#end
 {
 	static var initialized:Bool = false;
 
@@ -48,11 +52,18 @@ class TitleState extends MusicBeatState
 	{
 		
 		FlxG.fullscreen = FlxG.save.data.fullscreen;
-		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
-		#end
+		
 
 		PlayerSettings.init();
+		
+		#if windows
+		DiscordClient.initialize();
+
+		Application.current.onExit.add (function (exitCode) {
+			DiscordClient.shutdown();
+		 });
+		 
+		#end
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 

@@ -167,7 +167,9 @@ class StoryMenuState extends MusicBeatState
 		//difficultySelectors.add(rightArrow);
 
 		trace("Line 150");
-
+#if android
+addVirtualPad(FULL, A_B);
+#end
 		add(yellowBG);
 		add(grpWeekCharacters);
 
